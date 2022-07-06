@@ -1,0 +1,58 @@
+<div class="main-admin-page">
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Id</th>
+          <th scope="col">Email</th>
+          <th scope="col">Roll</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let user of allUsers; let indexOfElement = index">
+        <tr>
+          <th scope="row">{{ indexOfElement + 1 }}</th>
+          <td [attr.id]="'id' + user.id">{{ user.id }}</td>
+          <td [attr.id]="'email' + user.id">{{ user.email }}</td>
+          <td>
+            <select
+              [attr.id]="'roll' + user.id"
+              (change)="changeRoll($event, user.id)"
+            >
+              <option
+                *ngFor="let roll of rolls"
+                [selected]="roll.label == user.roll"
+              >
+                {{ roll.label }}
+              </option>
+            </select>
+          </td>
+          <td class="last-col">
+            <i
+              [attr.id]="'delete' + user.id"
+              style="cursor: pointer"
+              class="fa-solid fa-trash-can text-danger"
+              (click)="showAreYouSure(user.id)"
+            ></i>
+
+            <div
+              [attr.id]="'ynholder' + user.id"
+              class="yesnoholder hide-yes-no"
+            >
+              <h6 class="are-you-sure">are you sure?</h6>
+              <div class="yes-no-btn-holder">
+                <button class="yes-btn" (click)="deleteUser(user.id)">
+                  yes
+                </button>
+                <button class="no-btn" (click)="hideAreYouSure(user.id)">
+                  no
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

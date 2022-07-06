@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-lg bg-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            aria-current="page"
+            (click)="openHomePage()"
+            >Home</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="loggedInUser !== null && loggedInUser.roll == 'student'"
+        >
+          <a
+            routerLink="/student"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="openStudentPage()"
+            >Student</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="loggedInUser !== null && loggedInUser.roll == 'teacher'"
+        >
+          <a
+            routerLink="/teacher"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="openTeacherPage()"
+            >Teacher</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="loggedInUser !== null && loggedInUser.roll == 'admin'"
+        >
+          <a
+            routerLink="/admin"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="openAdminPage()"
+            >Admin</a
+          >
+        </li>
+        <li
+          class="nav-item"
+          *ngIf="loggedInUser !== null && loggedInUser.roll == ''"
+        >
+          <a
+            routerLink="/admin"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="nav-link"
+            (click)="openContactAdminPage()"
+            >My Roll</a
+          >
+        </li>
+      </ul>
+      <div class="d-flex">
+        <div class="logged-in-user" *ngIf="loggedInUser.id != ''">
+          <div style="display: flex; align-items: center; margin-right: 0.5rem">
+            <h5 style="font-weight: lighter; margin-right: 0.5rem">
+              {{ loggedInUser.email }}
+            </h5>
+            <h5 style="margin-right: 0.5rem">|</h5>
+            <h6
+              class="text-primary"
+              style="
+                font-size: 1rem;
+                font-weight: lighter;
+                margin-right: 0.5rem;
+                cursor: pointer;
+              "
+              (click)="openChangePasswordPage()"
+            >
+              change password
+            </h6>
+          </div>
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </div>
+        <div *ngIf="loggedInUser.id == ''">
+          <button class="btn btn-primary btn-login" (click)="openLoginPage()">
+            Login
+          </button>
+          <button class="btn btn-outline-primary" (click)="openRegisterPage()">
+            Register
+          </button>
+        </div>
+      </div>
+      <!-- <form class="d-flex" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="userName"
+        />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form> -->
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
+<!-- [(ngModel)]="loggedInUser" -->
